@@ -11,9 +11,11 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import logoAsset from "../assets/tishya-logo.png.asset.json";
+import { Facebook, Instagram, Phone } from "lucide-react";
 
-const LOGO_URL =
-  "https://static.wixstatic.com/media/3941bc_86b555cd9e314f48b8d76ac10b07586e~mv2.png/v1/fill/w_277,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_86b555cd9e314f48b8d76ac10b07586e~mv2.png";
+const LOGO_URL = logoAsset.url;
+
 
 const navItems = [
   { to: "/", label: "Home" },
@@ -28,20 +30,22 @@ function TopBar() {
   return (
     <div className="w-full bg-navy text-navy-foreground text-sm">
       <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
-        <span>
+        <span className="flex items-center gap-2">
+          <Phone size={14} />
           Call us at :{" "}
           <a href="tel:+919992000536" className="underline hover:text-primary">
             +91 9992000536
           </a>
         </span>
-        <div className="flex gap-3">
-          <a href="https://www.facebook.com/tishyaconsultancy" aria-label="Facebook" className="hover:text-primary">FB</a>
-          <a href="https://www.instagram.com/tishyaconsultancy/" aria-label="Instagram" className="hover:text-primary">IG</a>
+        <div className="flex gap-3 items-center">
+          <a href="https://www.facebook.com/tishyaconsultancy" aria-label="Facebook" className="hover:text-primary"><Facebook size={16} /></a>
+          <a href="https://www.instagram.com/tishyaconsultancy/" aria-label="Instagram" className="hover:text-primary"><Instagram size={16} /></a>
         </div>
       </div>
     </div>
   );
 }
+
 
 function Header() {
   return (

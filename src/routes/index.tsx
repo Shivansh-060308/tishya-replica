@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { MessageSquare, FileCheck, GraduationCap, School, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,14 +26,22 @@ const steps = [
   { n: "03", title: "Receive Visa", text: "Embark on your adventure as we handle the details - receive your visa with ease and anticipation." },
 ];
 
-const countries = ["USA", "United Kingdom", "Germany", "Australia", "Canada", "New Zealand"];
+const countries = [
+  { name: "USA", flag: "🇺🇸" },
+  { name: "United Kingdom", flag: "🇬🇧" },
+  { name: "Germany", flag: "🇩🇪" },
+  { name: "Australia", flag: "🇦🇺" },
+  { name: "Canada", flag: "🇨🇦" },
+  { name: "New Zealand", flag: "🇳🇿" },
+];
 
 const services = [
-  { title: "Counselling", icon: "https://static.wixstatic.com/media/3941bc_378398d86f2845daa9650af4d794e66a~mv2.png/v1/fill/w_81,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_378398d86f2845daa9650af4d794e66a~mv2.png" },
-  { title: "Visa Processing", icon: "https://static.wixstatic.com/media/3941bc_c4227c0f62e44e06843cd9afe6f32c46~mv2.png/v1/fill/w_81,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_c4227c0f62e44e06843cd9afe6f32c46~mv2.png" },
-  { title: "Test Preparation", icon: "https://static.wixstatic.com/media/3941bc_bc42a5de21ad47bfbbc07ddf5a746043~mv2.png/v1/fill/w_81,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_bc42a5de21ad47bfbbc07ddf5a746043~mv2.png" },
-  { title: "University Selection", icon: "https://static.wixstatic.com/media/3941bc_1400e397c23e47b78aa1316609a2ce95~mv2.png/v1/fill/w_81,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_1400e397c23e47b78aa1316609a2ce95~mv2.png" },
+  { title: "Counselling", Icon: MessageSquare },
+  { title: "Visa Processing", Icon: FileCheck },
+  { title: "Test Preparation", Icon: GraduationCap },
+  { title: "University Selection", Icon: School },
 ];
+
 
 function Home() {
   return (
@@ -100,32 +109,40 @@ function Home() {
           <h2 className="text-3xl md:text-4xl font-bold">Choose Your Country !</h2>
           <div className="mt-10 grid grid-cols-2 md:grid-cols-3 gap-6">
             {countries.map((c) => (
-              <div key={c} className="border border-white/40 rounded-lg py-6 px-4 backdrop-blur-sm bg-white/10 font-semibold text-lg hover:bg-primary hover:border-primary transition">
-                {c}
+              <div key={c.name} className="border border-white/40 rounded-lg py-6 px-4 backdrop-blur-sm bg-white/10 hover:bg-primary hover:border-primary transition flex flex-col items-center gap-2">
+                <span className="text-4xl" aria-hidden>{c.flag}</span>
+                <span className="font-semibold text-lg">{c.name}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Services */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-navy">Our Services</h2>
-          <p className="mt-4 text-muted-foreground max-w-2xl mx-auto italic">
+      {/* Services — orange/navy split */}
+      <section className="grid md:grid-cols-2">
+        <div className="bg-primary text-primary-foreground p-10 md:p-16 flex flex-col justify-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold">Our Services</h2>
+          <div className="h-1 w-24 bg-primary-foreground/70 mt-3" />
+          <p className="mt-8 italic leading-relaxed max-w-md">
             "At Tishya Consultancy pvt.ltd, we offer a comprehensive suite of services encompassing immigration and education consultancy."
           </p>
-          <Link to="/services" className="inline-block mt-3 text-primary font-semibold hover:underline">Read More →</Link>
-          <div className="mt-10 grid gap-8 grid-cols-2 md:grid-cols-4">
-            {services.map((s) => (
-              <div key={s.title} className="flex flex-col items-center gap-3 p-6 rounded-lg border hover:shadow-lg transition">
-                <img src={s.icon} alt={s.title} className="h-16 w-16" />
-                <h3 className="text-lg font-semibold">{s.title}</h3>
-              </div>
-            ))}
-          </div>
+          <Link
+            to="/services"
+            className="mt-8 inline-flex items-center gap-2 bg-navy text-navy-foreground font-semibold px-6 py-3 rounded w-fit hover:opacity-90"
+          >
+            Read More <ArrowRight size={18} />
+          </Link>
+        </div>
+        <div className="bg-navy text-navy-foreground p-10 md:p-16 grid grid-cols-2 gap-x-8 gap-y-10">
+          {services.map(({ title, Icon }) => (
+            <div key={title} className="flex items-center gap-4">
+              <Icon size={56} strokeWidth={1.25} className="shrink-0" />
+              <h3 className="text-xl md:text-2xl font-bold leading-tight">{title}</h3>
+            </div>
+          ))}
         </div>
       </section>
     </>
   );
 }
+

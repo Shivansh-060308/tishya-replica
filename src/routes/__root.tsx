@@ -11,9 +11,11 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import logoAsset from "../assets/tishya-logo.png.asset.json";
+import { Facebook, Instagram, Phone } from "lucide-react";
 
-const LOGO_URL =
-  "https://static.wixstatic.com/media/3941bc_86b555cd9e314f48b8d76ac10b07586e~mv2.png/v1/fill/w_277,h_85,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_86b555cd9e314f48b8d76ac10b07586e~mv2.png";
+const LOGO_URL = logoAsset.url;
+
 
 const navItems = [
   { to: "/", label: "Home" },

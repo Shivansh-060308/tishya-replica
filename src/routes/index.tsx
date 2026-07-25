@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { MessageSquare, FileCheck, GraduationCap, School, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,14 +26,22 @@ const steps = [
   { n: "03", title: "Receive Visa", text: "Embark on your adventure as we handle the details - receive your visa with ease and anticipation." },
 ];
 
-const countries = ["USA", "United Kingdom", "Germany", "Australia", "Canada", "New Zealand"];
+const countries = [
+  { name: "USA", flag: "🇺🇸" },
+  { name: "United Kingdom", flag: "🇬🇧" },
+  { name: "Germany", flag: "🇩🇪" },
+  { name: "Australia", flag: "🇦🇺" },
+  { name: "Canada", flag: "🇨🇦" },
+  { name: "New Zealand", flag: "🇳🇿" },
+];
 
 const services = [
-  { title: "Counselling", icon: "https://static.wixstatic.com/media/3941bc_378398d86f2845daa9650af4d794e66a~mv2.png/v1/fill/w_81,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_378398d86f2845daa9650af4d794e66a~mv2.png" },
-  { title: "Visa Processing", icon: "https://static.wixstatic.com/media/3941bc_c4227c0f62e44e06843cd9afe6f32c46~mv2.png/v1/fill/w_81,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_c4227c0f62e44e06843cd9afe6f32c46~mv2.png" },
-  { title: "Test Preparation", icon: "https://static.wixstatic.com/media/3941bc_bc42a5de21ad47bfbbc07ddf5a746043~mv2.png/v1/fill/w_81,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_bc42a5de21ad47bfbbc07ddf5a746043~mv2.png" },
-  { title: "University Selection", icon: "https://static.wixstatic.com/media/3941bc_1400e397c23e47b78aa1316609a2ce95~mv2.png/v1/fill/w_81,h_81,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/3941bc_1400e397c23e47b78aa1316609a2ce95~mv2.png" },
+  { title: "Counselling", Icon: MessageSquare },
+  { title: "Visa Processing", Icon: FileCheck },
+  { title: "Test Preparation", Icon: GraduationCap },
+  { title: "University Selection", Icon: School },
 ];
+
 
 function Home() {
   return (

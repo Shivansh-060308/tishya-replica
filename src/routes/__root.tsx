@@ -4,22 +4,25 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import logoAsset from "../assets/tishya-logo.png.asset.json";
 import { Facebook, Instagram, Phone } from "lucide-react";
+import { AdmissionsScroller } from "../components/AdmissionsScroller";
 
-const LOGO_URL = logoAsset.url;
+const LOGO_URL = "/tishya-logo.png";
 
 
 const navItems = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
+  { to: "/dubai-branch", label: "Dubai Branch" },
   { to: "/success-stories", label: "Success Stories" },
   { to: "/services", label: "Services" },
   { to: "/gallery", label: "Gallery" },
@@ -64,7 +67,7 @@ function Header() {
               key={n.to}
               to={n.to}
               className="hover:text-primary transition-colors"
-              activeProps={{ className: "text-primary" }}
+              activeProps={{ className: "text-primary font-semibold" }}
               activeOptions={{ exact: true }}
             >
               {n.label}
@@ -87,9 +90,14 @@ function Footer() {
             C-157, Industrial Area, Phase 7, Mohali, Chandigarh
           </p>
           <p className="text-sm mb-2">
-            <strong>Branch Office:</strong><br />
+            <strong>Branch Offices:</strong><br />
             Opp. New Bus Stand, DD colony, Kurukshetra<br />
-            SHOP NO 1, First Floor, Huda Market, DC Colony, Jind
+            SCO 1, First Floor, Huda Complex, DC Colony, Jind
+          </p>
+          <p className="text-sm mb-2">
+            <strong>Dubai Branch (Ttishya Consultancy FZE):</strong><br />
+            Business Centre, Sharjah Publishing City Free Zone, Sharjah, UAE<br />
+            Contact: +971-525253366
           </p>
         </div>
         <div>
@@ -171,7 +179,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" },
@@ -194,14 +201,25 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col overflow-x-hidden">
         <TopBar />
         <Header />
-        <main className="flex-1">
-          <Outlet />
-        </main>
+        <AdmissionsScroller />
+        <AnimatePresence mode="wait">
+          <motion.main
+            key={location.pathname}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="flex-1"
+          >
+            <Outlet />
+          </motion.main>
+        </AnimatePresence>
         <Footer />
       </div>
     </QueryClientProvider>

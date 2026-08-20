@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/gallery")({
   head: () => ({
@@ -30,17 +31,70 @@ const images = [
   "https://static.wixstatic.com/media/3941bc_b9ad0c4b8063491bbeb3c780d15431d1~mv2.png/v1/fill/w_480,h_479,fp_0.42_0.6,q_90,enc_avif,quality_auto/3941bc_b9ad0c4b8063491bbeb3c780d15431d1~mv2.png",
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.06 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 15 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 240, damping: 20 },
+  },
+};
+
 function Gallery() {
   return (
     <>
-      <img src={BANNER} alt="" className="w-full h-48 md:h-64 object-cover" />
+      <motion.div
+        initial={{ opacity: 0, scale: 1.02 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        className="overflow-hidden"
+      >
+        <img src={BANNER} alt="" className="w-full h-48 md:h-64 object-cover" />
+      </motion.div>
       <section className="max-w-6xl mx-auto px-4 py-14">
-        <h1 className="text-4xl font-bold text-navy text-center">Gallery</h1>
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center"
+        >
+          <h1 className="text-4xl font-bold text-navy">Gallery</h1>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+        >
           {images.map((src, i) => (
-            <img key={i} src={src} alt={`Gallery ${i + 1}`} className="w-full aspect-square object-cover rounded-md hover:scale-105 transition" loading="lazy" />
+            <motion.div
+              key={i}
+              variants={itemVariants}
+              whileHover={{ y: -6, scale: 1.04 }}
+              transition={{ type: "spring" as const, stiffness: 300, damping: 20 }}
+              className="overflow-hidden rounded-lg shadow-sm hover:shadow-xl transition-shadow bg-muted cursor-pointer"
+            >
+              <motion.img
+                whileHover={{ scale: 1.08 }}
+                transition={{ duration: 0.4 }}
+                src={src}
+                alt={`Gallery ${i + 1}`}
+                className="w-full aspect-square object-cover"
+                loading="lazy"
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
     </>
   );

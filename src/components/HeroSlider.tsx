@@ -108,7 +108,7 @@ export function HeroSlider({
       <div className="relative bg-slate-900 border border-white/20 rounded-2xl overflow-hidden shadow-2xl transition-transform duration-300">
         {/* Aspect Container / Height adjustment */}
         <div className="relative w-full overflow-hidden min-h-[380px] sm:min-h-[480px] lg:min-h-[540px] flex items-center justify-center bg-slate-950">
-          <AnimatePresence initial={false} custom={direction} mode="popLayout">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
               key={currentSlide.id}
               custom={direction}

@@ -1,14 +1,10 @@
-[build]
-  command = "npm run build && node scripts/netlify-postbuild.js"
-  publish = ".output/public"
+﻿[build]
+  command = "npm run build"
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+  NITRO_PRESET = "netlify"
 
 [[headers]]
   for = "/assets/*"
@@ -24,4 +20,3 @@
   for = "/*.png"
   [headers.values]
     Cache-Control = "public, max-age=604800"
-
